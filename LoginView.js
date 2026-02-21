@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase"; 
 
 
   export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate("Locations");
+      navigation.navigate("Main");
     } catch (error) {
       Alert.alert("Virhe", "Väärä käyttäjätunnus tai salasana");
     }

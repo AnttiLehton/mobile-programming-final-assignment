@@ -12,6 +12,7 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginView} />
+        <Stack.Screen name="Main" component={MainPage} />
         <Stack.Screen name="Locations" component={LocationsView} />
       </Stack.Navigator>
     </NavigationContainer>
