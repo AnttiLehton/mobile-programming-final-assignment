@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 
-export default function LoginScreen() {
+
+  export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (email === "test" && password === "123") {
-      Alert.alert("Onnistui", "Kirjautuminen onnistui!");
-    } else {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigation.navigate("Locations");
+    } catch (error) {
       Alert.alert("Virhe", "Väärä käyttäjätunnus tai salasana");
     }
-  };
+    };
+
 
   return (
     <View style={styles.container}>
@@ -44,4 +47,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 5,
   },
-});
+});]

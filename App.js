@@ -1,7 +1,7 @@
 import React from "react";
 
-import Location from "./Location";
+import LoginScreen from "./LoginView";
 
 export default function App() {
-  return <Location />;
+  return <LoginScreen />;
 }
