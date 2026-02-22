@@ -9,7 +9,7 @@ export default function MainPage({ navigation }) {
 
      const handleLogout = async () => {
         await signOut(auth);
-        navigation.navigate("Login");
+        navigation.replace("Login");
     };
 return (
 <View style={styles.container}>
