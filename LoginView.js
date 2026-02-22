@@ -7,12 +7,15 @@ import { auth } from "./firebase";
   export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const handleLogin = async () => {
+    console.log("AUTH:", auth);
+    
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate("Main");
     } catch (error) {
+      console.log(error.code);
       Alert.alert("Virhe", "Väärä käyttäjätunnus tai salasana");
     }
     };
@@ -28,7 +31,7 @@ import { auth } from "./firebase";
         onChangeText={setEmail}
       />
       <TextInput
-        style={styles.input}
+        style={styles.input}c
         placeholder="Password"
         secureTextEntry
         value={password}
