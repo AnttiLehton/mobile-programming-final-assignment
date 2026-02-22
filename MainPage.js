@@ -11,13 +11,33 @@ export default function MainPage({ navigation }) {
         await signOut(auth);
         navigation.replace("Login");
     };
-return (
-<View style={styles.container}>
-    <Text>Welcome, {user?.email}!</Text>
-    <Text>Main Page</Text>
 
-     <Button title="Logout" onPress={handleLogout} />
-</View>
+
+return (
+    <View style={styles.container}>
+        <Text style={styles.title}>Welcome!</Text>
+
+        <Button
+         title= "Sijainti"
+            onPress={() => navigation.navigate("Location")}
+        />
+
+        <Button
+         title = "Kartta"
+            onPress={() => navigation.navigate("Map")}
+        />
+
+        <Button
+         title = "Etsi sijainteja"
+            onPress={() => navigation.navigate("AddLocation")}
+        />
+
+        <View style={{ marginTop: 20 }}>
+            <Button title="Logout" onPress={handleLogout} color="red"/>
+         </View>
+        </View>
+
+
 );
 
 }
