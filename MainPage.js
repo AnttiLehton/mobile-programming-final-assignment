@@ -1,12 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
+import {auth} from "./firebase";
 
-export default function MainPage() {
-    return (
-        <View style={styles.container}>
-            <Text>Main Page</Text>
-        </View>
-    );
+import { signOut } from "firebase/auth";
+
+export default function MainPage({ navigation }) {
+    const user = auth.currentUser;
+
+     const handleLogout = async () => {
+        await signOut(auth);
+        navigation.navigate("Login");
+    };
+return (
+<View style={styles.container}>
+    <Text>Welcome, {user?.email}!</Text>
+    <Text>Main Page</Text>
+
+     <Button title="Logout" onPress={handleLogout} />
+</View>
+);
+
 }
 
 
