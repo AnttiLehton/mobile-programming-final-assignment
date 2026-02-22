@@ -4,19 +4,20 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase"; 
 
 
-  export default function LoginScreen({ navigation }) {
+  export default function LoginView({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   const handleLogin = async () => {
     console.log("AUTH:", auth);
+    console.log("LOGIN PRESSED");
     
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate("Main");
     } catch (error) {
-      console.log(error.code);
-      Alert.alert("Virhe", "Väärä käyttäjätunnus tai salasana");
+      console.log("LOGIN ERROR;" , error?.code, error?.message);
+      Alert.alert("Virhe", "Väärä käyttäjätunnus tai salasana", `${error?.code}\n${error?.message}`);
     }
     };
 
@@ -31,7 +32,7 @@ import { auth } from "./firebase";
         onChangeText={setEmail}
       />
       <TextInput
-        style={styles.input}c
+        style={styles.input}
         placeholder="Password"
         secureTextEntry
         value={password}
