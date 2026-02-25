@@ -18,7 +18,7 @@ export default function AddLocation() {
         } catch (error) {
             console.log(error)
         }
-    }:
+    }
 
 
  return(
