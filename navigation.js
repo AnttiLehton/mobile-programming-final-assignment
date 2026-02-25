@@ -8,6 +8,7 @@ import { createContext, useState } from "react";
 import LoginView from "./LoginView";
 import MainPage from "./MainPage";
 import AddLocation from "./AddLocation";
+import CountrySearch from "./CountrySearch";
 
 export const UserContext = createContext(null);
 
@@ -23,6 +24,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Login" component={LoginView} />
       <Stack.Screen name="Main" component={MainPage} />
       <Stack.Screen name= "AddLocation" component={AddLocation} />
+      <Stack.Screen name= "CountrySearch" component={CountrySearch} />
 
 
       </Stack.Navigator>
