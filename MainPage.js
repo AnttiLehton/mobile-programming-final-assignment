@@ -21,7 +21,8 @@ export default function MainPage({ navigation }) {
 
       <Button title="Sijainti" onPress={() => navigation.navigate("Location")} />
       <Button title="Kartta" onPress={() => navigation.navigate("Map")} />
-      <Button title="Etsi sijainteja" onPress={() => navigation.navigate("AddLocation")} />
+      <Button title="Lisää sijainteja" onPress={() => navigation.navigate("AddLocation")} />
+      <Button title="Hae maita" onPress={() => navigation.navigate("CountrySearch")} />
 
       <View style={{ marginTop: 20 }}>
         <Button title="Logout" onPress={handleLogout} color="red" />

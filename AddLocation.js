@@ -1,32 +1,44 @@
-import React, {useState} from "react";
-import { View, TextInput, Button } from "react-native";
-import { addDoc, collection } from "firebase/firestore";
+import React, { useState } from "react";
+import { View, TextInput, Button, Alert } from "react-native";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 
 export default function AddLocation() {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [rating, setRating] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [rating, setRating] = useState("");
 
-    const savelocation = async () => {
-        try {
-            await addDoc(collection(db, "locations"), {
-                name,
-                description,
-                rating,
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }:
+  console.log("AddLocation rendered, db:", db);
 
+  const savelocation = async () => {
+    try {
+      console.log("SAVE PRESSED", { name, description, rating });
 
- return(
-    <View>
-        <TextInput placeholder="Name" value={name} onChangeText={setName} />
-        <TextInput placeholder="Description" value={description} onChangeText={setDescription} />
-         <TextInput placeholder="Rating" value={rating} onChangeText={setRating} keyboardType="numeric" />
-        <Button title = "Save Location" onPress={savelocation} />
-        </View>
-);
+      const docRef = await addDoc(collection(db, "locations"), {
+        name: name.trim(),
+        description: description.trim(),
+        rating: Number(rating),
+        createdAt: serverTimestamp(),
+      });
+
+      console.log("SAVED OK:", docRef.id);
+      Alert.alert("Tallennettu", `id: ${docRef.id}`);
+
+      setName("");
+      setDescription("");
+      setRating("");
+    } catch (error) {
+      console.log("SAVE ERROR:", error);
+      Alert.alert("Virhe", error.message);
     }
+  };
+
+  return (
+    <View style={{ padding: 16, gap: 12 }}>
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Name" value={name} onChangeText={setName} />
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Description" value={description} onChangeText={setDescription} />
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Rating" value={rating} onChangeText={setRating} keyboardType="numeric" />
+      <Button title="Save Location" onPress={savelocation} />
+    </View>
+  );
+}
