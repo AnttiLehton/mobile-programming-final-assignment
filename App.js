@@ -7,4 +7,24 @@ export default function App() {
 
 }
 
+export default function App(){
+
+	useEffect(() => {
+		(async function(){
+			const {status} = await requestForegroundPermissionsAsync();
+
+    })();
+
+},[]);
+
+return(
+	  <View style = {styles.container}>
+		  <MapView
+		  	style={{flex:1}}
+		  	region={{}}
+		  />
+	  </View>
+  );
+}
+
 document.body.style.backgroundColor = '#FFC9D8'
