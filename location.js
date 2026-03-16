@@ -40,3 +40,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 });
+
+document.body.style.backgroundColor = '#FFC9D8'

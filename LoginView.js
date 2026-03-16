@@ -54,3 +54,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+
+document.body.style.backgroundColor = '#FFC9D8'

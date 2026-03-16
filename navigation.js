@@ -32,3 +32,4 @@ export default function AppNavigator() {
     </UserContext.Provider>
   );
 }
+document.body.style.backgroundColor = '#FFC9D8'

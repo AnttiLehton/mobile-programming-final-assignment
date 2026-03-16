@@ -6,3 +6,5 @@ export default function App() {
   return <AppNavigator />;
 
 }
+
+document.body.style.backgroundColor = '#FFC9D8'
