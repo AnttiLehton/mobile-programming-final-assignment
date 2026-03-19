@@ -56,3 +56,4 @@ const styles = StyleSheet.create({
 });
 
 document.body.style.backgroundColor = '#FFC9D8'
+document.getElementById("button").style.background='#5fff77';
