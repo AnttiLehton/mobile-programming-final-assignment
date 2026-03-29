@@ -5,6 +5,10 @@ export default function CountrySearch() {
     const [keyword, setKeyword] = useState('');
     const [results, setResults] = useState([]);
 
+    const [regionFilter, setRegionFilter] = useState('');
+    const [minPopulation, setMinPopulation] = useState('');
+
+
     const searchCountries = async () => {
         try {
             const response = await fetch(`https://restcountries.com/v3.1/name/${keyword}`);
@@ -16,6 +20,22 @@ export default function CountrySearch() {
         }
     };
 
+
+
+
+const filteredResults = results.filter((item) => {
+const matchesRegion =
+    regionFilter === '' ||
+    item.region.toLowerCase().includes(regionFilter.toLowerCase());
+
+const matchesPopulation =
+    minPopulation === '' ||
+    item.population >= Number(minPopulation);
+
+return matchesRegion && matchesPopulation;
+});
+
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -24,10 +44,26 @@ export default function CountrySearch() {
                 onChangeText={setKeyword}
                 style={styles.input}
             /> 
+
+            <TextInput
+                placeholder='Filter by region'
+                value={regionFilter}
+                onChangeText={setRegionFilter}
+                style={styles.input}
+            />
+
+            <TextInput
+                placeholder='Minimum population'
+                value={minPopulation}
+                onChangeText={setMinPopulation}
+                style={styles.input}
+                keyboardType='numeric'
+            />
+
             <Button title='Search' onPress={searchCountries} />
 
             <FlatList
-                data={results}
+                data={filteredResults}
                 keyExtractor={(item) => item.cca3}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
