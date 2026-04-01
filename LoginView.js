@@ -41,7 +41,7 @@ export default function LoginView({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20 },
+  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: '#FFC9D8' },
   title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
   input: { borderWidth: 1, borderColor: "#ccc", padding: 10, marginBottom: 15, borderRadius: 5 },
   link: { color: "#007AFF", textAlign: "center", marginTop: 15 },
