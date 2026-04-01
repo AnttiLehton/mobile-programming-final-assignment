@@ -42,4 +42,3 @@ export default function AddLocation() {
     </View>
   );
 }
-document.body.style.backgroundColor = '#FFC9D8'

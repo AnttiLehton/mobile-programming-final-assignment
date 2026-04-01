@@ -37,5 +37,3 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
 });
-
-document.body.style.backgroundColor = '#FFC9D8'

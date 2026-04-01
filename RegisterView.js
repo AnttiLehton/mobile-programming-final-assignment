@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase"; 
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
 
-export default function LoginView({ navigation }) {
+export default function RegisterView({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const handleLogin = async () => {
+
+  const handleRegister = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate("Main");
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigation.navigate("Login");
     } catch (error) {
       Alert.alert("Error", error?.message);
     }
@@ -18,7 +18,7 @@ export default function LoginView({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Register</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -32,9 +32,9 @@ export default function LoginView({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
-      <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
-        Register
+      <Button title="Register" onPress={handleRegister} />
+      <Text style={styles.link} onPress={() => navigation.navigate("Login")}>
+        Back to Login
       </Text>
     </View>
   );

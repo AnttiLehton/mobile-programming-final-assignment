@@ -6,6 +6,7 @@ import { createContext, useState } from "react";
 
 
 import LoginView from "./LoginView";
+import RegisterView from "./RegisterView";
 import MainPage from "./MainPage";
 import AddLocation from "./AddLocation";
 import CountrySearch from "./CountrySearch";
@@ -22,6 +23,7 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginView} />
+      <Stack.Screen name="Register" component={RegisterView} />
       <Stack.Screen name="Main" component={MainPage} />
       <Stack.Screen name= "AddLocation" component={AddLocation} />
       <Stack.Screen name= "CountrySearch" component={CountrySearch} />
@@ -32,4 +34,3 @@ export default function AppNavigator() {
     </UserContext.Provider>
   );
 }
-document.body.style.backgroundColor = '#FFC9D8'
