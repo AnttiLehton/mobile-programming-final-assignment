@@ -32,7 +32,7 @@ export default function LoginView({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button color="rgb(59, 168, 99)" title="Login" onPress={handleLogin} />
       <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
         Register
       </Text>
@@ -41,8 +41,8 @@ export default function LoginView({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: '#FFC9D8' },
-  title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
+  container: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: '#ffe3ef' },
+  title: { fontSize: 24, marginBottom: 20, textAlign: "center", fontFamily: 'Merriweather' },
   input: { borderWidth: 1, borderColor: "#ccc", padding: 10, marginBottom: 15, borderRadius: 5 },
-  link: { color: "#007AFF", textAlign: "center", marginTop: 15 },
+  link: { color: "#257b33", textAlign: "center", marginTop: 15 },
 });

@@ -19,10 +19,10 @@ export default function MainPage({ navigation }) {
 
       <Text>{user ? user : "Guest"}</Text>
 
-      <Button title="Sijainti" onPress={() => navigation.navigate("Location")} />
-      <Button title="Kartta" onPress={() => navigation.navigate("Map")} />
-      <Button title="Lisää sijainteja" onPress={() => navigation.navigate("AddLocation")} />
-      <Button title="Hae maita" onPress={() => navigation.navigate("CountrySearch")} />
+      <Button color="rgb(59, 168, 99)" title="Sijainti" onPress={() => navigation.navigate("Location")} />
+      <Button color="rgb(59, 168, 99)" title="Kartta" onPress={() => navigation.navigate("map")} />
+      <Button color="rgb(59, 168, 99)" title="Lisää sijainteja" onPress={() => navigation.navigate("AddLocation")} />
+      <Button color="rgb(59, 168, 99)" title="Hae maita" onPress={() => navigation.navigate("CountrySearch")} />
 
       <View style={{ marginTop: 20 }}>
         <Button title="Logout" onPress={handleLogout} color="red" />
@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: '#ffe3ef'
   },
 });
