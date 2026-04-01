@@ -27,6 +27,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Main" component={MainPage} />
       <Stack.Screen name= "AddLocation" component={AddLocation} />
       <Stack.Screen name= "CountrySearch" component={CountrySearch} />
+      <Stack.Screen name= 'map' component={map}/>
 
 
       </Stack.Navigator>
