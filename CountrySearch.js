@@ -17,14 +17,14 @@ export default function CountrySearch() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: '#ffe3ef'}]}>
             <TextInput
                 placeholder='Search country'
                 value={keyword}
                 onChangeText={setKeyword}
                 style={styles.input}
             /> 
-            <Button title='Search' onPress={searchCountries} />
+            <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
 
             <FlatList
                 data={results}
