@@ -1,50 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, TextInput, Button, Alert } from "react-native";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
-import * as Location from "expo-location";
 
 export default function AddLocation() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [rating, setRating] = useState("");
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === "granted") {
-        const { coords } = await Location.getCurrentPositionAsync({});
-        setLatitude(coords.latitude.toString());
-        setLongitude(coords.longitude.toString());
-      }
-    })();
-  }, []);
+  console.log("AddLocation rendered, db:", db);
 
-  const saveLocation = async () => {
+  const savelocation = async () => {
     try {
-      await addDoc(collection(db, "locations"), {
+      console.log("SAVE PRESSED", { name, description, rating });
+
+      const docRef = await addDoc(collection(db, "locations"), {
         name: name.trim(),
         description: description.trim(),
-        latitude: Number(latitude),
-        longitude: Number(longitude),
+        rating: Number(rating),
         createdAt: serverTimestamp(),
       });
-      Alert.alert("Saved!", "Location added to map");
+
+      console.log("SAVED OK:", docRef.id);
+      Alert.alert("Tallennettu", `id: ${docRef.id}`);
+
       setName("");
       setDescription("");
+      setRating("");
     } catch (error) {
-      Alert.alert("Error", error.message);
+      console.log("SAVE ERROR:", error);
+      Alert.alert("Virhe", error.message);
     }
   };
 
   return (
     <View style={{ padding: 16, gap: 12 }}>
-      <TextInput placeholder="Name" value={name} onChangeText={setName} style={{ borderWidth: 1, padding: 10 }} />
-      <TextInput placeholder="Description" value={description} onChangeText={setDescription} style={{ borderWidth: 1, padding: 10 }} />
-      <TextInput placeholder="Latitude" value={latitude} editable={false} style={{ borderWidth: 1, padding: 10, color: "#999" }} />
-      <TextInput placeholder="Longitude" value={longitude} editable={false} style={{ borderWidth: 1, padding: 10, color: "#999" }} />
-      <Button title="Save Location" onPress={saveLocation} />
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Name" value={name} onChangeText={setName} />
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Description" value={description} onChangeText={setDescription} />
+      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Rating" value={rating} onChangeText={setRating} keyboardType="numeric" />
+      <Button title="Save Location" onPress={savelocation} />
     </View>
   );
 }
