@@ -56,6 +56,8 @@ return matchesRegion && matchesPopulation;
                             style={{ width: 50, height: 30, marginRight: 10 }}
                         />  
                         <Text>{item.name.common}</Text>
+                        <Text> {item.region}</Text>
+                        <Text>population : {item.population}</Text>
                     </View>
                 )}
             />
