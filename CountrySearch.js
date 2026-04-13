@@ -37,30 +37,14 @@ return matchesRegion && matchesPopulation;
 
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: '#ffe3ef'}]}>
             <TextInput
                 placeholder='Search country'
                 value={keyword}
                 onChangeText={setKeyword}
                 style={styles.input}
             /> 
-
-            <TextInput
-                placeholder='Filter by region'
-                value={regionFilter}
-                onChangeText={setRegionFilter}
-                style={styles.input}
-            />
-
-            <TextInput
-                placeholder='Minimum population'
-                value={minPopulation}
-                onChangeText={setMinPopulation}
-                style={styles.input}
-                keyboardType='numeric'
-            />
-
-            <Button title='Search' onPress={searchCountries} />
+            <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
 
             <FlatList
                 data={filteredResults}
