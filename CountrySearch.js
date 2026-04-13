@@ -16,7 +16,7 @@ export default function CountrySearch() {
                 const data = await response.json();
                 const countries = Array.isArray(data) ? data : [];
                 setAllCountries(countries);
-                setResults(countries);
+                setResults([]);
             } catch (error) {
                 console.error('Error fetching countries:', error);
                 Alert.alert('Error', 'Failed to fetch countries. Please try again.');
