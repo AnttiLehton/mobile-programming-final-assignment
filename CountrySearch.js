@@ -13,10 +13,11 @@ export default function CountrySearch() {
         try {
             const response = await fetch(`https://restcountries.com/v3.1/name/${keyword}`);
             const data = await response.json();
-            setResults(data);
+            setResults(Array.isArray(data) ? data : []);
         } catch (error) {
             console.error('Error fetching countries:', error);
             Alert.alert('Error', 'Failed to fetch countries. Please try again.');
+            setResults([]);
         }
     };
 
@@ -34,6 +35,8 @@ const matchesPopulation =
 
 return matchesRegion && matchesPopulation;
 });
+
+
 
 
 return (
