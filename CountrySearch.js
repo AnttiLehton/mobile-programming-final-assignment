@@ -10,10 +10,16 @@ export default function CountrySearch() {
 
     const searchCountries = async () => {
         try {
-            const response = await fetch(`https://restcountries.com/v3.1/name/${keyword}`);
+            const response = await fetch('https://restcountries.com/v3.1/all');
             const data = await response.json();
-            const newResults = Array.isArray(data) ? data : [];
-            setResults((prevResults) => [...prevResults, ...newResults]);
+
+            const searchedResults = Array.isArray(data)
+                ? data.filter((item) =>
+                    item.name.common.toLowerCase().includes(keyword.toLowerCase())
+                )
+                : [];
+
+            setResults(searchedResults);
         } catch (error) {
             console.error('Error fetching countries:', error);
             Alert.alert('Error', 'Failed to fetch countries. Please try again.');
@@ -34,7 +40,7 @@ export default function CountrySearch() {
     });
 
     return (
-        <View style={[styles.container, {backgroundColor: '#ffe3ef'}]}>
+        <View style={[styles.container, { backgroundColor: '#ffe3ef' }]}>
             <TextInput
                 placeholder='Search country'
                 value={keyword}
