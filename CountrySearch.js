@@ -8,12 +8,12 @@ export default function CountrySearch() {
     const [regionFilter, setRegionFilter] = useState('');
     const [minPopulation, setMinPopulation] = useState('');
 
-
     const searchCountries = async () => {
         try {
             const response = await fetch(`https://restcountries.com/v3.1/name/${keyword}`);
             const data = await response.json();
-            setResults(Array.isArray(data) ? data : []);
+            const newResults = Array.isArray(data) ? data : [];
+            setResults((prevResults) => [...prevResults, ...newResults]);
         } catch (error) {
             console.error('Error fetching countries:', error);
             Alert.alert('Error', 'Failed to fetch countries. Please try again.');
@@ -21,63 +21,57 @@ export default function CountrySearch() {
         }
     };
 
+    const filteredResults = results.filter((item) => {
+        const matchesRegion =
+            regionFilter === '' ||
+            item.region.toLowerCase().includes(regionFilter.toLowerCase());
 
+        const matchesPopulation =
+            minPopulation === '' ||
+            item.population >= Number(minPopulation);
 
+        return matchesRegion && matchesPopulation;
+    });
 
-const filteredResults = results.filter((item) => {
-const matchesRegion =
-    regionFilter === '' ||
-    item.region.toLowerCase().includes(regionFilter.toLowerCase());
+    return (
+        <View style={[styles.container, {backgroundColor: '#ffe3ef'}]}>
+            <TextInput
+                placeholder='Search country'
+                value={keyword}
+                onChangeText={setKeyword}
+                style={styles.input}
+            />
 
-const matchesPopulation =
-    minPopulation === '' ||
-    item.population >= Number(minPopulation);
+            <TextInput
+                placeholder='Filter by region'
+                value={regionFilter}
+                onChangeText={setRegionFilter}
+                style={styles.input}
+            />
 
-return matchesRegion && matchesPopulation;
-});
+            <TextInput
+                placeholder='Minimum population'
+                value={minPopulation}
+                onChangeText={setMinPopulation}
+                keyboardType='numeric'
+                style={styles.input}
+            />
 
+            <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
 
-
-
-return (
-    <View style={[styles.container, {backgroundColor: '#ffe3ef'}]}>
-        <TextInput
-            placeholder='Search country'
-            value={keyword}
-            onChangeText={setKeyword}
-            style={styles.input}
-        /> 
-
-        <TextInput
-            placeholder='Filter by region'
-            value={regionFilter}
-            onChangeText={setRegionFilter}
-            style={styles.input}
-        />
-
-        <TextInput
-            placeholder='Minimum population'
-            value={minPopulation}
-            onChangeText={setMinPopulation}
-            keyboardType='numeric'
-            style={styles.input}
-        />
-
-        <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
-
-        <FlatList
-            data={filteredResults}
-            keyExtractor={(item) => item.cca3}
-            renderItem={({ item }) => (
-                <View style={styles.item}>
-                    <Image
-                        source={{ uri: item.flags.png }}
-                        style={{ width: 50, height: 30, marginRight: 10 }}
-                    />  
-                    <Text>{item.name.common}</Text>
-                    <Text> {item.region}</Text>
-                    <Text>population : {item.population}</Text>
-                </View>
+            <FlatList
+                data={filteredResults}
+                keyExtractor={(item) => item.cca3}
+                renderItem={({ item }) => (
+                    <View style={styles.item}>
+                        <Image
+                            source={{ uri: item.flags.png }}
+                            style={{ width: 50, height: 30, marginRight: 10 }}
+                        />
+                        <Text>{item.name.common}</Text>
+                        <Text> {item.region}</Text>
+                        <Text>population : {item.population}</Text>
+                    </View>
                 )}
             />
         </View>
