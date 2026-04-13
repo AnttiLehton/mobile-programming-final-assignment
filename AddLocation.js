@@ -34,11 +34,11 @@ export default function AddLocation() {
   };
 
   return (
-    <View style={{ padding: 16, gap: 12 }}>
-      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Description" value={description} onChangeText={setDescription} />
-      <TextInput style={{ borderWidth: 1, padding: 10 }} placeholder="Rating" value={rating} onChangeText={setRating} keyboardType="numeric" />
-      <Button title="Save Location" onPress={savelocation} />
+    <View style={{ padding: 16, gap: 12, backgroundColor: '#ffe3ef' }}>
+      <TextInput color="rgb(59, 168, 99)" style={{ borderWidth: 1, padding: 10 }} placeholder="Name" value={name} onChangeText={setName} />
+      <TextInput color="rgb(59, 168, 99)" style={{ borderWidth: 1, padding: 10 }} placeholder="Description" value={description} onChangeText={setDescription} />
+      <TextInput color="rgb(59, 168, 99)" style={{ borderWidth: 1, padding: 10 }} placeholder="Rating" value={rating} onChangeText={setRating} keyboardType="numeric" />
+      <Button color="rgb(59, 168, 99)" title="Save Location" onPress={savelocation} />
     </View>
   );
 }
