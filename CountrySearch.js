@@ -1,43 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Image, FlatList, Button, Alert, StyleSheet } from 'react-native';
 
 export default function CountrySearch() {
     const [keyword, setKeyword] = useState('');
+    const [allCountries, setAllCountries] = useState([]);
     const [results, setResults] = useState([]);
 
     const [regionFilter, setRegionFilter] = useState('');
     const [minPopulation, setMinPopulation] = useState('');
 
-    const searchCountries = async () => {
-        try {
-            const response = await fetch('https://restcountries.com/v3.1/all');
-            const data = await response.json();
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+                const countries = Array.isArray(data) ? data : [];
+                setAllCountries(countries);
+                setResults(countries);
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+                Alert.alert('Error', 'Failed to fetch countries. Please try again.');
+            }
+        };
 
-            const searchedResults = Array.isArray(data)
-                ? data.filter((item) =>
-                    item.name.common.toLowerCase().includes(keyword.toLowerCase())
-                )
-                : [];
+        fetchCountries();
+    }, []);
 
-            setResults(searchedResults);
-        } catch (error) {
-            console.error('Error fetching countries:', error);
-            Alert.alert('Error', 'Failed to fetch countries. Please try again.');
-            setResults([]);
-        }
+    const searchCountries = () => {
+        const filtered = allCountries.filter((item) => {
+            const matchesKeyword =
+                keyword === '' ||
+                item.name.common.toLowerCase().includes(keyword.toLowerCase());
+
+            const matchesRegion =
+                regionFilter === '' ||
+                item.region.toLowerCase().includes(regionFilter.toLowerCase());
+
+            const matchesPopulation =
+                minPopulation === '' ||
+                item.population >= Number(minPopulation);
+
+            return matchesKeyword && matchesRegion && matchesPopulation;
+        });
+
+        setResults(filtered);
     };
-
-    const filteredResults = results.filter((item) => {
-        const matchesRegion =
-            regionFilter === '' ||
-            item.region.toLowerCase().includes(regionFilter.toLowerCase());
-
-        const matchesPopulation =
-            minPopulation === '' ||
-            item.population >= Number(minPopulation);
-
-        return matchesRegion && matchesPopulation;
-    });
 
     return (
         <View style={[styles.container, { backgroundColor: '#ffe3ef' }]}>
@@ -66,7 +73,7 @@ export default function CountrySearch() {
             <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
 
             <FlatList
-                data={filteredResults}
+                data={results}
                 keyExtractor={(item) => item.cca3}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
@@ -74,9 +81,11 @@ export default function CountrySearch() {
                             source={{ uri: item.flags.png }}
                             style={{ width: 50, height: 30, marginRight: 10 }}
                         />
-                        <Text>{item.name.common}</Text>
-                        <Text> {item.region}</Text>
-                        <Text>population : {item.population}</Text>
+                        <View>
+                            <Text>{item.name.common}</Text>
+                            <Text>{item.region}</Text>
+                            <Text>population : {item.population}</Text>
+                        </View>
                     </View>
                 )}
             />
