@@ -12,11 +12,17 @@ export default function CountrySearch() {
     useEffect(() => {
         const fetchCountries = async () => {
             try {
-                const response = await fetch('https://restcountries.com/v3.1/all');
+                const response = await fetch(
+                    'https://restcountries.com/v3.1/all?fields=name,region,population,flags,cca3'
+                );
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch countries');
+                }
+
                 const data = await response.json();
                 const countries = Array.isArray(data) ? data : [];
                 setAllCountries(countries);
-                setResults([]);
             } catch (error) {
                 console.error('Error fetching countries:', error);
                 Alert.alert('Error', 'Failed to fetch countries. Please try again.');
@@ -49,28 +55,28 @@ export default function CountrySearch() {
     return (
         <View style={[styles.container, { backgroundColor: '#ffe3ef' }]}>
             <TextInput
-                placeholder='Search country'
+                placeholder="Search country"
                 value={keyword}
                 onChangeText={setKeyword}
                 style={styles.input}
             />
 
             <TextInput
-                placeholder='Filter by region'
+                placeholder="Filter by region"
                 value={regionFilter}
                 onChangeText={setRegionFilter}
                 style={styles.input}
             />
 
             <TextInput
-                placeholder='Minimum population'
+                placeholder="Minimum population"
                 value={minPopulation}
                 onChangeText={setMinPopulation}
-                keyboardType='numeric'
+                keyboardType="numeric"
                 style={styles.input}
             />
 
-            <Button color="rgb(59, 168, 99)" title='Search' onPress={searchCountries} />
+            <Button color="rgb(59, 168, 99)" title="Search" onPress={searchCountries} />
 
             <FlatList
                 data={results}
